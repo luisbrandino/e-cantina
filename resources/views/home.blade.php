@@ -86,7 +86,7 @@ Cardápio
                     <!-- Footer End -->
                 </div>
                     <!-- Modal Options for Item 01 End -->
-                    
+
                     <!-- Modal Details for Item 01 -->
                 <div id="modalDetailsItem01" class="modal-popup zoom-anim-dialog mfp-hide">
                     <div class="small-dialog-header">
@@ -107,7 +107,7 @@ Cardápio
                 </div>
                 @endforeach
 
-            
+
             </div>
             <!-- Left Sidebar End -->
             <!-- Right Sidebar -->

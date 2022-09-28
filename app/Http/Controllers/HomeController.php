@@ -18,12 +18,6 @@ class HomeController extends Controller
     public function index() {
         $contents = $this->_repository->getContents();
 
-        $product = $contents['products'][0];
-
-        if (Auth::check()) {
-            
-        }
-
         return view('home', ['contents' => $contents]);
     }
 

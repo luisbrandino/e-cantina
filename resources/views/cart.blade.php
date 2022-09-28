@@ -11,11 +11,13 @@
 {{ 'Row Id: ' . $row->id . '<br>' }}
 {{ 'Row Name: ' . $row->name . '<br>' }}
 {{ 'Row Quantity: ' . $row->quantity . '<br>' }}
-{{ 'Row Price: ' . $row->subtotal   . '<br>' }}
+{{ 'Row Price: ' . $row->quantity * $row->price   . '<br>' }}
 
 {{ 'Product Id' . $row->associatedModel->id . '<br>' }}
 {{ 'Product Name' . $row->associatedModel->name }}
 
 @endforeach
+
+<br>
 
 @stop

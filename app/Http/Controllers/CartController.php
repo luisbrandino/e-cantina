@@ -6,7 +6,6 @@ use App\Http\Requests\CartAddRequest;
 use App\Http\Requests\CartRemoveRequest;
 use App\Http\Requests\CartUpdateRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Repositories\CartRepository;
 
 class CartController extends Controller
@@ -16,11 +15,11 @@ class CartController extends Controller
     {
         $this->_repository = $repository;
     }
-    
+
     public function add(CartAddRequest $request, Product $product) {
         if ($this->_repository->add($product)) {
             // success
-           // return;
+            return redirect()->back();
         }
 
         //dump($this->_repository->getItems());
@@ -32,7 +31,7 @@ class CartController extends Controller
     public function remove(CartRemoveRequest $request, Product $product) {
         if ($this->_repository->remove($product)) {
             // success
-            return;
+            return redirect()->back();
         }
 
         // failure

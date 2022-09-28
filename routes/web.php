@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,11 @@ Route::get('/login', function () {
     return redirect()->route('home');
 })->name('login');
 
-//Route::get('/cart', [HomeController::class, 'testCart'])->middleware('auth');
+Route::get('/cardapio', [MenuController::class, 'index'])->name('menu');
+
+Route::get('/cart', function () {
+    return view('cart');
+})->middleware('auth');
 
 Route::middleware('auth')->group(function () {
 
