@@ -19,7 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email'
+        'email',
+        'microsoft_id',
+        'microsoft_username'
     ];
 
     /**

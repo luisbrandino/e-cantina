@@ -60,6 +60,7 @@ class AuthRepository {
 
         $payload['name'] = $providerUser['name'];
 
+
         /*
         $imagePath = 'avatars/' . Uuid::uuid4()->toString() . '.png';
         Storage::put('public/' . $imagePath, file_get_contents($payload['image']));
