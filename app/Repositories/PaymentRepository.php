@@ -12,7 +12,7 @@ class PaymentRepository {
     }
 
     public function create() {
-        
+
     }
 
 }
