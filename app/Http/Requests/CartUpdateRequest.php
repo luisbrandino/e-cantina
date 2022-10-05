@@ -25,7 +25,7 @@ class CartUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'productId' => [
+            'product' => [
                 'required|exists:products,id,on_menu,true',
             ]
         ];

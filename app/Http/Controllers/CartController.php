@@ -19,28 +19,33 @@ class CartController extends Controller
     public function add(CartAddRequest $request, Product $product) {
         if ($this->_repository->add($product)) {
             // success
-            return redirect()->back();
+            return true;
         }
 
         //dump($this->_repository->getItems());
 
         // failure
-        return;
+        return false;
+    }
+
+    public function update(CartUpdateRequest $request, Product $product) {
+        $quantity = $request->input('quantity');
+
+        if ($this->_repository->update($product, ['quantity' => $quantity])) {
+            return true;
+        }
+
+        return false;
     }
 
     public function remove(CartRemoveRequest $request, Product $product) {
         if ($this->_repository->remove($product)) {
             // success
-            return redirect()->back();
+            return true;
         }
 
         // failure
-        return;
+        return false;
     }
-
-    public function update(CartUpdateRequest $request) {
-
-    }
-
 
 }

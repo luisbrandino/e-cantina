@@ -37,6 +37,8 @@ Route::get('/cart', function () {
 Route::middleware('auth')->group(function () {
 
     // Cart
-    Route::get('/cart/add/{product}', [CartController::class, 'add']);
-    Route::get('/cart/remove/{product}', [CartController::class, 'remove']);
+    Route::post('/cart/add/{product}', [CartController::class, 'add']);
+    Route::post('/cart/update/{product}', [CartController::class, 'update']);
+    Route::post('/cart/remove/{product}', [CartController::class, 'remove']);
+
 });

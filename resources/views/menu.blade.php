@@ -1,5 +1,9 @@
 @extends('shared.layout')
 
+@section('title')
+Cardápio
+@stop
+
 @section('sub-header')
 Cardápio
 @stop
@@ -39,13 +43,8 @@ Cardápio
 							<div class="row grid">
 								<!-- Grid Item 05 -->
 
-                                @php
-                                    $index = 0;
-                                @endphp
-
                                 @foreach ($contents['products'] as $product)
-
-                                    <div id="gridItem{{ $index <= 9 ? '0' . $index : $index }}" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 isotope-item">
+                                    <div id="gridItem{{ $product->id }}" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 isotope-item">
                                         <div class="item-body">
                                             <figure>
                                                 <img src="../img/bg/lazy-placeholder.jpg" data-src="../img/gallery/grid-items/05.jpg" class="img-fluid lazy" alt="">
@@ -58,17 +57,14 @@ Cardápio
                                             </figure>
                                             <ul>
                                                 <li>
-                                                    <span class="item-price format-price">{{ $product->price }}</span>
+                                                    <span class="item-price format-price">@format($product->price)</span>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:;" class="add-item-to-cart"><i class="icon icon-shopping-cart"></i></a>
+                                                    <a href="javascript:;" productId="{{ $product->id }}" class="add-item-to-cart"><i class="icon icon-shopping-cart"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    @php
-                                        $index++;
-                                    @endphp
                                 @endforeach
 								<!-- Grid Item 06 -->
 								<div id="gridItem06" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 isotope-item  vegetarian">

@@ -41,12 +41,15 @@ class CartRepository {
 
     public function update(Product $product, $attributes) {
         if (!is_array($attributes))
-            return;
+            return 'n é array';
 
         $row = $this->_findRowByProduct($product);
 
         if (is_null($row))
-            return;
+            return 'n tem row';
+
+        if ($row->quantity + $attributes['quantity'] > 10)
+            return 'ja foi quantidaade';
 
         $this->_getCart()->update($row->id, $attributes);
 
@@ -55,6 +58,14 @@ class CartRepository {
 
     public function getItems() {
         return $this->_getCart()->getContent();
+    }
+
+    public function getTotal() {
+        return $this->_getCart()->getTotal();
+    }
+
+    public function getSubTotal() {
+        return $this->_getCart()->getSubTotal();
     }
 
     private function _has(Product $product) {

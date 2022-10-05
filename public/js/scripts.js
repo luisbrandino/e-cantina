@@ -495,32 +495,37 @@
 	}
 
 	// Function to insert item into its dedicated cart row based on: id, rowId, itemSubtitle, thumbnailPath, itemTitle, extraTitle, itemPrice
-	function insertItemIntoCartRow(id, rowId, itemSubtitle, thumbnailPath, itemTitle, extraTitle, itemPrice) {
+	function insertItemIntoCartRow(id, rowId, itemSubtitle, thumbnailPath, itemTitle, extraTitle, itemPrice, productId) {
 
 		// Create the dedicated row for the cart element
 		$('#itemList').append('<li id="cartItem' + id + rowId + '"></li>');
 
 		// Insert item into its dedicated row in the cart
-		$('#cartItem' + id + rowId).html('<div class="order-list-img"><img src="' + thumbnailPath + '" alt=""></div><div class="order-list-details"><h4>' + itemTitle + '<br/> <small>' + itemSubtitle + extraTitle + '</small> </h4> <div class="qty-buttons"> <input type="button" value="+" class="qtyplus" name="plus"> <input type="text" name="qty" value="1" class="qty form-control"> <input type="button" value="-" class="qtyminus" name="minus"> </div><div class="order-list-price format-price">' + itemPrice.toFixed(2) + '</div><div class="order-list-delete"><a href="javascript:;" id="deleteCartItem' + id + rowId + '"><i class="icon icon-trash"></i></a></div></div>');
+		$('#cartItem' + id + rowId).html('<div class="order-list-img"><img src="' + thumbnailPath + '" alt=""></div><div class="order-list-details"><h4>' + itemTitle + '<br/> <small>' + itemSubtitle + extraTitle + '</small> </h4> <div class="qty-buttons" productId="' + productId + '"> <input type="button" value="+" class="qtyplus" name="plus"> <input type="text" name="qty" value="1" class="qty form-control"> <input type="button" value="-" class="qtyminus" name="minus"> </div><div class="order-list-price format-price">' + itemPrice.toFixed(2) + '</div><div class="order-list-delete"><a href="javascript:;" id="deleteCartItem' + id + rowId + '"><i class="icon icon-trash"></i></a></div></div>');
 
 		// Handle if an added item will be deleted
 		$('#deleteCartItem' + id + rowId).on('click', function () {
 
-			// Fade out the deleted item
-			$('#cartItem' + id + rowId).fadeOut('slow', function () {
+			$.post(`/cart/remove/${productId}`, (success) => {
+				if (!success)
+					return alert('Ocorreu um erro:', success);
 
-				// Remove item from cart
-				$('#cartItem' + id + rowId).remove();
+				// Fade out the deleted item
+				$('#cartItem' + id + rowId).fadeOut('slow', function () {
 
-				// Handle if cart is empty
-				if (isCartEmpty()) {
-					setEmptyCart();
-				}
+					// Remove item from cart
+					$('#cartItem' + id + rowId).remove();
 
-				// Update total
-				updateTotal();
+					// Handle if cart is empty
+					if (isCartEmpty()) {
+						setEmptyCart();
+					}
 
-			});
+					// Update total
+					updateTotal();
+
+				});	
+			})
 		});
 
 		// Handle qty plus
@@ -532,15 +537,22 @@
 			// If qty number is less than the max.limit
 			if (actualQty < maxQty) {
 
-				// Increment
-				qtyInput.val(actualQty + 1);
-				actualQty = qtyInput.val();
+				let productId = $(this).parent().attr('productId'); 
 
-				// Update subSum
-				updateSubSum(id, rowId, itemPrice, actualQty); // actualQty is the increased value
+				$.post(`/cart/update/${productId}`, { quantity: 1 }, (success) => {
+					if (!success)
+						return alert('Algum erro ocorreu:', success);
+	
+					// Increment
+					qtyInput.val(actualQty + 1);
+					actualQty = qtyInput.val();
 
-				// Update total
-				updateTotal();
+					// Update subSum
+					updateSubSum(id, rowId, itemPrice, actualQty); // actualQty is the increased value
+
+					// Update total
+					updateTotal();
+				});
 
 			} else {
 				// Warning popup
@@ -556,15 +568,22 @@
 
 			if (actualQty > 1) {
 
-				// Decrement
-				qtyInput.val(actualQty - 1);
-				actualQty = qtyInput.val();
+				let productId = $(this).parent().attr('productId'); 
 
-				// Update subSum
-				updateSubSum(id, rowId, itemPrice, actualQty); // actualQty is the decreased value
+				$.post(`/cart/update/${productId}`, { quantity: 1 }, (success) => {
+					if (!success)
+						return alert('Algum erro ocorreu:', success);
 
-				// Calculate total
-				updateTotal();
+					// Decrement
+					qtyInput.val(actualQty - 1);
+					actualQty = qtyInput.val();
+
+					// Update subSum
+					updateSubSum(id, rowId, itemPrice, actualQty); // actualQty is the decreased value
+
+					// Calculate total
+					updateTotal();
+				});
 
 			} else {
 				// Warning popup
@@ -764,7 +783,7 @@
 	}
 
 	// Function to add item into cart
-	function addItemToCart(id) {
+	function addItemToCart(id, productId) {
 
 		// Remove empty cart image and notifications
 		$('#emptyCart').remove();
@@ -787,7 +806,14 @@
 
 		} else { // If not: put it into the cart
 
-			insertItemIntoCartRow(id, rowId, description, thumbnailPath, itemTitle, extraTitle, itemPrice);
+
+
+			$.post(`/cart/add/${productId}`, (success) => {
+				if (success)
+					return insertItemIntoCartRow(id, rowId, description, thumbnailPath, itemTitle, extraTitle, itemPrice, productId);
+
+				alert('Algum erro ocorreu:', success);
+			});
 
 		}
 	}
@@ -805,7 +831,8 @@
 	$('.add-item-to-cart').on('click', function () {
 
 		id = $(this).parent().parent().parent().parent().attr('id').match(/\d+/);
-		addItemToCart(id);
+		let productId = $(this).attr('productId');
+		addItemToCart(id, productId);
 		validateTotal();
 
 	});
