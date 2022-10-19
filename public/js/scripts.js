@@ -97,7 +97,7 @@
 		// Prevent moving forward if total is zero
 		beforeForward: function (event, state) {
 
-			if ($('.total').val() == '$ 0.00') {
+			if ($('.total').val() == 'R$ 0.00') {
 				validateTotal();
 				return false; // prevent moving forward
 			}
@@ -295,11 +295,18 @@
 	// INIT DROPDOWNS
 	// =====================================================
 	$('#category').niceSelect();
-
+	$('#category2').niceSelect();
 	// =====================================================
 	// FORM LABELS
 	// =====================================================
 	new FloatLabels('#orderForm', {
+		style: 1
+	});
+
+	new FloatLabels('#EditForm', {
+		style: 1
+	});
+	new FloatLabels('#CreateForm', {
 		style: 1
 	});
 
@@ -317,10 +324,10 @@
 	// Add custom empty order validation
 	window.Parsley.addValidator('emptyOrder', {
 		validateString: function (value) {
-			return value !== '$ 0.00';
+			return value !== 'R$ 0.00';
 		},
 		messages: {
-			en: 'Order is empty.'
+			en: 'O pedido está vazio.'
 		}
 	});
 
@@ -338,7 +345,7 @@
 	// Function to format item prices usign priceFormat plugin
 	function formatPrice() {
 		$('.format-price').priceFormat({
-			prefix: '$ ',
+			prefix: 'R$ ',
 			centsSeparator: '.',
 			thousandsSeparator: ','
 		});
@@ -433,7 +440,7 @@
 	var actualQty = 0;
 	var maxQty = 10;
 	var subSum = 0;
-	var deliveryFee = 10;
+	//var deliveryFee = 10;
 	var total = 0;
 
 	// Function to set empty cart image
@@ -443,7 +450,7 @@
 		$('#itemList').append('<li id="emptyCart"></li>');
 
 		// Fill the dedicated row
-		$('#emptyCart').html('<div class="order-list-img"><img src="../img/bg/empty-cart-small.jpg" alt="Your cart is empty"/></div><div class="order-list-details"> <h4>Your cart is empty</a><br/><small>Start adding items</small></h4> <div class="order-list-price format-price">0.00</div></div>');
+		$('#emptyCart').html('<div class="order-list-img"><img src="../img/bg/empty-cart-small.jpg" alt="O seu carrinho está vazio!"/></div><div class="order-list-details"> <h4>O seu carrinho está vazio!</a><br/><small>Que tal adicionar algo?</small></h4> <div class="order-list-price format-price">0.00</div></div>');
 		formatPrice();
 	}
 
@@ -476,8 +483,6 @@
 			total += ($(this).text().match(/[0-9.]+/g) * 1);
 
 		});
-		//Add delivery fee
-		total = total + (deliveryFee * 1);
 
 		// Set total
 		$('.total').val(total.toFixed(2));
@@ -525,7 +530,8 @@
 					updateTotal();
 
 				});	
-			})
+			});
+            
 		});
 
 		// Handle qty plus
@@ -552,7 +558,7 @@
 
 					// Update total
 					updateTotal();
-				});
+                });
 
 			} else {
 				// Warning popup
@@ -570,7 +576,7 @@
 
 				let productId = $(this).parent().attr('productId'); 
 
-				$.post(`/cart/update/${productId}`, { quantity: 1 }, (success) => {
+				$.post(`/cart/update/${productId}`, { quantity: -1 }, (success) => {
 					if (!success)
 						return alert('Algum erro ocorreu:', success);
 
@@ -671,7 +677,7 @@
 		extraTitle = $('#item' + id + 'ExtraTitle').val();
 		extraPrice = ($('#item' + id + 'Extra').val()) * 1; // Find digits, dot and convert to number
 
-		thumbnailPath = '../img/gallery/grid-items-small/' + id + '.jpg';
+		thumbnailPath = '/thumbnail-small/'
 
 		// Capture row where the item will be inserted
 		if (size == 'Small: 26cm') {
@@ -689,7 +695,7 @@
 
 				} else { // If not: put it into the cart
 
-					insertItemIntoCartRow(id, rowId, size, thumbnailPath, itemTitle, extraTitle, itemPrice);
+                    
 
 				}
 
@@ -797,7 +803,9 @@
 		itemPrice = $('#gridItem' + id + ' .item-price').text();
 		itemPrice = (itemPrice.match(/[0-9.]+/g)) * 1; // Find digits, dot and convert to number
 
-		thumbnailPath = '../img/gallery/grid-items-small/' + id + '.jpg';
+		const image = $('#gridItem' + id).attr('image');
+
+		thumbnailPath = '/thumbnail-small/' + image;
 
 		// Check if item already exists in cart or not
 		if ($('#cartItem' + id + rowId).length > 0) {
@@ -805,8 +813,6 @@
 			showItemAlreadyInCartMessage();
 
 		} else { // If not: put it into the cart
-
-
 
 			$.post(`/cart/add/${productId}`, (success) => {
 				if (success)

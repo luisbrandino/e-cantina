@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>E-cantina | @yield('title')</title>
+	<title>E-cantina | cardápio</title>
 
 	<!-- Favicon -->
 	<link href="../img/favicon.png" rel="shortcut icon">
@@ -60,39 +60,23 @@
 						</div>
 					</div>
 					<div class="col-lg-9 col-6">
-						<ul id="menuIcons">
-							<li><a href="#"><i class="icon icon-shopping-cart2"></i></a></li>
-						</ul>
 						<!-- Menu -->
 						<nav id="menu" class="main-menu">
 							<ul>
-								<li><span><a href="#">Home</a></span></li>
-							<!--	<li>
-									<span><a href="#">Order <i class="fa fa-chevron-down"></i></a></span>
-									<ul>
-										<li>
-											<span><a href="#">Pay online</a></span>
-											<ul>
-												<li><a href="../pay-with-card-online/">Demo 1 - Filtering</a></li>
-												<li><a href="../pay-with-card-online/order-2.php">Demo 2 - Sticky navigation</a></li>
-											</ul>
-										</li>
-										<li>
-											<span><a href="#">Pay with cash</a></span>
-											<ul>
-												<li><a href="../pay-with-cash-on-delivery/">Demo 1 - Filtering</a></li>
-												<li><a href="../pay-with-cash-on-delivery/order-2.php">Demo 2 - Sticky navigation</a></li>
-											</ul>
-										</li>
-									</ul>
-								</li>-->
+								<li><span><a href="../">Home</a></span></li>
+								<li><span><a href="../pay-with-card-online/">Cardápio</a></span></li>
 
-                                @php
+								@php
                                     $provider = config('providers.microsoft');
                                 @endphp
 
-								<li><span><a href="../pay-with-cash-on-delivery/">Cardápio</a></span></li>
-								<li><span><a href="{{ $provider['auth_uri'] }}/authorize?client_id={{ $provider['client_id'] }}&redirect_uri={{ $provider['redirect_uri'] }}&scope={{ $provider['scope'] }}&response_mode=form_post&response_type=token">Entrar com Microsoft</a></span></li>
+                                @guest
+                                    <li><span><a href="{{ $provider['auth_uri'] }}/authorize?client_id={{ $provider['client_id'] }}&redirect_uri={{ $provider['redirect_uri'] }}&scope={{ $provider['scope'] }}&response_mode=form_post&response_type=token">Entrar com Microsoft</a></span></li>
+                                @endguest
+
+                                @auth
+                                	<li><span>Bem-vindo, {{ Auth::user()->name }}</span></li>
+                                @endauth
 							</ul>
 						</nav>
 						<!-- Menu End -->
@@ -105,15 +89,18 @@
 		<!-- Sub Header -->
 		<div class="sub-header">
 			<div class="container">
-				<h1>@yield('sub-header')</h1>
+				<h1>Cardápio</h1>
 			</div>
 		</div>
+		<!-- Sub Header End -->
 
-        <main>
-            @yield('content')
-        </main>
+		<!-- Main -->
+		<main>
+			@yield('content')
+		</main>
+		<!-- Main End -->
 
-        <!-- Footer -->
+		<!-- Footer -->
 		<footer class="main-footer">
 			<div class="container">
 				<div class="row">
@@ -127,18 +114,8 @@
 						<ul class="list-unstyled nav-links">
 							<li><i class="fa fa-angle-right"></i> <a href="../index.html" class="footer-link">Home</a></li>
 							<li><i class="fa fa-angle-right"></i> <a href="../pay-with-card-online/index.php" class="footer-link">Cardápio</a></li>
-							<li><i class="fa fa-angle-right"></i> <a href="../contacts.html" class="footer-link">Contacts</a></li>
 						</ul>
-					</div>
-					<div class="col-md-4">
-						<h5 class="footer-heading">Contato</h5>
-						<ul class="list-unstyled contact-links">
-							<li><i class="icon icon-map-marker"></i><a href="https://goo.gl/maps/vKgGyZe2JSRLDnYH6" class="footer-link" target="_blank">Address: 1234 Street Name, City Name, USA</a>
-							</li>
-							<li><i class="icon icon-envelope3"></i><a href="mailto:info@yourdomain.com" class="footer-link">Mail: info@yourdomain.com</a></li>
-							<li><i class="icon icon-phone2"></i><a href="tel:+3630123456789" class="footer-link">Phone: +3630123456789</a></li>
-						</ul>
-					</div>
+					</div>	
 					<!--<div class="col-md-2">
 						<h5 class="footer-heading">Find Us On</h5>
 						<ul class="list-unstyled social-links">
@@ -158,7 +135,7 @@
 						</ul>
 					</div>
 					<div class="col-md-4">
-						<div id="copy">Copyright</div>
+						<div id="copy">Copyright @2022</div>
 					</div>
 				</div>
 			</div>
@@ -230,7 +207,7 @@
 	</div>
 	<!-- Modal Options for Item 01 End -->
 
-	<!-- Modal Options for Item 02
+	<!-- Modal Options for Item 02 
 	<div id="modalOptionsItem02" class="modal-popup zoom-anim-dialog mfp-hide">
 		<div class="small-dialog-header">
 			<h3>Bolognese</h3>
@@ -286,7 +263,7 @@
 	</div>
 	<!-- Modal Options for Item 02 End -->
 
-	<!-- Modal Options for Item 03
+	<!-- Modal Options for Item 03 
 	<div id="modalOptionsItem03" class="modal-popup zoom-anim-dialog mfp-hide">
 		<div class="small-dialog-header">
 			<h3>Castello</h3>
@@ -341,7 +318,7 @@
 	</div>
 	<!-- Modal Options for Item 03 End -->
 
-	<!-- Modal Options for Item 04
+	<!-- Modal Options for Item 04 
 	<div id="modalOptionsItem04" class="modal-popup zoom-anim-dialog mfp-hide">
 		<div class="small-dialog-header">
 			<h3>Fitness</h3>
@@ -396,226 +373,7 @@
 	</div>
 	<!-- Modal Options for Item 04 End -->
 
-	<!-- Modal Details for Item 01 -->
-	<div id="modalDetailsItem01" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Aspen</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/01.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p class="ingredients">Bacon, Onion, Mushroom, Mozarella</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 1 End -->
-
-	<!-- Modal Details for Item 02 -->
-	<div id="modalDetailsItem02" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Bolognese</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/02.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Ragu, Mozzarella</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 02 End -->
-
-	<!-- Modal Details for Item 03 -->
-	<div id="modalDetailsItem03" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Castello</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/03.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Bacon, Sausage, Jalapeno, Onion, Mozzarella</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 03 End -->
-
-
-	<!-- Modal Details for Item 05 -->
-	<div id="modalDetailsItem05" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Caesar Salad</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/05.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Lettuce, Grilled Chicken, Toasted Bread, Garlic Dressing</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 05 End -->
-
-	<!-- Modal Details for Item 06 -->
-	<div id="modalDetailsItem06" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Greek Salad</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/06.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Tomato, Onion, Olives, Cucumber, Feta Cheese</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 06 End -->
-
-	<!-- Modal Details for Item 07 -->
-	<div id="modalDetailsItem07" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Grilled Salmon</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/07.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Salmon, Lime, Pasta</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 07 End -->
-
-	<!-- Modal Details for Item 08 -->
-	<div id="modalDetailsItem08" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Sushi</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/08.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Sushi, Rice, Soy Sauce, Toasted Sesame Seeds</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 08 End -->
-
-	<!-- Modal Details for Item 09 -->
-	<div id="modalDetailsItem09" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Beef Burger</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/09.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Beaf Meat, Bacon, Cucumber, Cheese, Caramelized Onion Jam</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 09 End -->
-
-	<!-- Modal Details for Item 10 -->
-	<div id="modalDetailsItem10" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Double Beef Burger</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/10.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Double Beaf Meat, Bacon, Cucumber, Cheese, Caramelized Onion Jam</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 10 End -->
-
-	<!-- Modal Details for Item 11 -->
-	<div id="modalDetailsItem11" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Chicken Burger</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/11.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Chicken Meat, Double Cheese, Tomato, Cucumber, Parsley, Caramelized Onion Jam</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 11 End -->
-
-	<!-- Modal Details for Item 12 -->
-	<div id="modalDetailsItem12" class="modal-popup zoom-anim-dialog mfp-hide">
-		<div class="small-dialog-header">
-			<h3>Mexican Burger</h3>
-		</div>
-		<div class="content pb-1">
-			<figure><img src="../img/gallery/grid-items-large/12.jpg" alt="" class="img-fluid"></figure>
-			<h6 class="mb-1">Ingredients</h6>
-			<p>Chicken Meat, Mexican Topping, Bacon, Onion, Cheese</p>
-		</div>
-		<div class="footer">
-			<div class="row">
-				<div class="col-4 pr-0">
-					<button type="button" class="btn-modal-close">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Details for Item 12 End -->
+	@yield('modal')
 
 	<!-- Back to top button -->
 	<div id="toTop"><i class="icon icon-chevron-up"></i></div>
@@ -644,6 +402,6 @@
 
 	<!-- Main Javascript File -->
 	<script src="../js/scripts.js"></script>
-
 </body>
+
 </html>

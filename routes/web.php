@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +43,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add/{product}', [CartController::class, 'add']);
     Route::post('/cart/update/{product}', [CartController::class, 'update']);
     Route::post('/cart/remove/{product}', [CartController::class, 'remove']);
+
+    // Payment
+    Route::post('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+
+});
+
+Route::name('admin')->prefix('admin')->group(function() {
+    
+    Route::get('/', function() {
+        return '<h1> Você está no admin </h1>';
+    });
+
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+
+    
+    // Products (Create, Update, Delete)
+    Route::post('/products/create', [ProductController::class, 'create'])->name('.products.create');
 
 });

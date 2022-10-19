@@ -57,7 +57,27 @@ class CartRepository {
     }
 
     public function getItems() {
-        return $this->_getCart()->getContent();
+        $content = $this->_getCart()->getContent();
+
+        $items = [];
+
+        foreach($content as $item) {
+            $items[] = $item;
+        }
+
+        //$this->_iterate($content, function ($item) {
+        //    $items[] = $item;
+        //});
+
+        return $items;
+    }
+
+    public function isEmpty() {
+        return $this->_getCart()->isEmpty();
+    }
+
+    public function clear() {
+        return $this->_getCart()->clear();
     }
 
     public function getTotal() {
@@ -92,6 +112,12 @@ class CartRepository {
         }
 
         return $row;
+    }
+
+    private function _iterate($collection, $fn) {
+        foreach($collection as $item) {
+            $fn($item);
+        }
     }
 
     private function _getCart() {
