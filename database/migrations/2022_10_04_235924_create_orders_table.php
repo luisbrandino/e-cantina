@@ -15,11 +15,17 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->string('name');
             $table->string('collector');
             $table->enum('status', ['finished', 'pending']);
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->decimal('total');
+=======
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->integer('total');
+            $table->enum('status', ['pending', 'finished']);
+>>>>>>> fa72222baa4537afb3ecace6c978f83b9e120ade
             $table->timestamps();
         });
     }
