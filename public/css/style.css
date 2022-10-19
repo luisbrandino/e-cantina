@@ -2985,6 +2985,9 @@ label.cbx {
 	text-align: right;
 }
 
+.distanciarFooter{
+	padding-bottom: 15px;
+}
 /* Back To Top
 ==================================== */
 
@@ -3286,16 +3289,16 @@ label.cbx {
 	cursor: pointer;
 	transition: background .2s ease-in-out, border .2s ease-in-out;
   }
-  
+
   .drop-container:hover {
 	background: #eee;
 	border-color: #111;
   }
-  
+
   .drop-container:hover .drop-title {
 	color: #222;
   }
-  
+
   .drop-title {
 	color: #444;
 	font-size: 20px;
@@ -3303,7 +3306,7 @@ label.cbx {
 	text-align: center;
 	transition: color .2s ease-in-out;
   }
-  
+
   input[type=file] {
 	width: 350px;
 	max-width: 100%;
@@ -3313,7 +3316,7 @@ label.cbx {
 	border-radius: 10px;
 	border: 1px solid #555;
   }
-  
+
   input[type=file]::file-selector-button {
 	margin-right: 20px;
 	border: none;
@@ -3324,7 +3327,7 @@ label.cbx {
 	cursor: pointer;
 	transition: background .2s ease-in-out;
   }
-  
+
   input[type=file]::file-selector-button:hover {
 	background: #0d45a5;
   }
@@ -3335,10 +3338,10 @@ label.cbx {
 	width: 60px;
 	height: 34px;
   }
-  
+
   /* Hide default HTML checkbox */
   .switch input {display:none;}
-  
+
   /* The slider */
   .slider {
 	position: absolute;
@@ -3351,7 +3354,7 @@ label.cbx {
 	-webkit-transition: .4s;
 	transition: .4s;
   }
-  
+
   .slider:before {
 	position: absolute;
 	content: "";
@@ -3363,26 +3366,26 @@ label.cbx {
 	-webkit-transition: .4s;
 	transition: .4s;
   }
-  
+
   input:checked + .slider {
 	background-color: #f25c04;
   }
-  
+
   input:focus + .slider {
 	box-shadow: 0 0 1px #f25c04;
   }
-  
+
   input:checked + .slider:before {
 	-webkit-transform: translateX(26px);
 	-ms-transform: translateX(26px);
 	transform: translateX(26px);
   }
-  
+
   /* Rounded sliders */
   .slider.round {
 	border-radius: 34px;
   }
-  
+
   .slider.round:before {
 	border-radius: 50%;
   }
@@ -3398,7 +3401,7 @@ label.cbx {
 	background: rgba( 230, 215, 206, 0.35 );
 	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 	backdrop-filter: blur( 14px );
-   	-webkit-backdrop-filter: blur( 14px );	
+   	-webkit-backdrop-filter: blur( 14px );
    	padding-left: 50px !important;
   }
 
@@ -3420,4 +3423,14 @@ label.cbx {
 
 .contentOrders p {
 	margin: 10px;
+}
+
+/*Página de status*/
+
+.PaymentUndone {
+	color: red;
+}
+
+.PaymentDone{
+	color: green;
 }

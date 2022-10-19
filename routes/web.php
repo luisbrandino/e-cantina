@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,15 +51,17 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::name('admin')->prefix('admin')->group(function() {
-    
+
     Route::get('/', function() {
         return '<h1> Você está no admin </h1>';
     });
 
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
-    
+
     // Products (Create, Update, Delete)
     Route::post('/products/create', [ProductController::class, 'create'])->name('.products.create');
+
+    Route::get('/order', [OrderController::class, 'get']);
 
 });

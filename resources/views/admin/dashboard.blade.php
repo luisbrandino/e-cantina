@@ -240,265 +240,42 @@
 
 	<!-- Step 2: Checkout -->
 	<div class="step">
-		<h3 class="editTittleProd">pedidos atuais</h3>
+		<h3 class="editTittleProd">Pedidos Atuais</h3>
 		<div id="personalDetails">
-			<div class="order-body">
+			<div class="order-body" id="order-body">
 
-				<div class="row" id="RowPedidos">
-					<!--É nesse id da Row que você vai usar o ForEach -->
+			</div>
 
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row" id="RowPedidos">
-					<!--É nesse id da Row que você vai usar o ForEach -->
-
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box text-center">
-							<h3 class="service-title">Matheus Monteiro</h3>
-
-							<div class="contentOrders">
-
-								<p class="textDashboard"> <span class="numberOrder">2X</span> Risóles de presunto e
-									queijo </p>
-								<p class="textDashboard"> <span class="numberOrder">1X</span> Coca-cola 450ml </p>
-								<p class="textDashboard"> <span class="numberOrder">3X</span> Bala Halls</p>
-
-							</div>
-
-							<div class="row">
-								<div class="col-md-7 ">
-									<button type="submit" name="finish" class="btn-form-func2">
-										<span class="btn-form-func-content">Finalizar</span>
-									</button>
-								</div>
-
-								<div class="col-md-5 ">
-									<button type="button" name="cancel"
-										class="btn-form-func2 btn-form-func-alt-color1 backward">
-										<span class="btn-form-func-content">Cancelar</span>
-									</button>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div> 
-		
 		</div>
 	</div>
 
 </div><!--fim do modal-->
+
+<div class="col-md-3" style="visibility: hidden" id="order-template">
+    <div class="box text-center">
+		<h3 class="service-title"></h3>
+
+		<div class="contentOrders">
+
+			<p class="textDashboard"><span class="numberOrder"></span> </p>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-7 ">
+				<button type="submit" name="finish" class="btn-form-func2">
+					<span class="btn-form-func-content">Finalizar</span>
+				</button>
+			</div>
+
+			<div class="col-md-5 ">
+				<button type="button" name="cancel" class="btn-form-func2 btn-form-func-alt-color1 backward">
+					<span class="btn-form-func-content">Cancelar</span>
+				</button>
+		    </div>
+	    </div>
+	</div>
+</div>
 
 @stop
 
@@ -511,7 +288,7 @@
 	})
 
 	const getInputsFromForm = form => $(form).find(':input').toArray();
-	
+
 	const validators = {
 		string: input => input.val().toString(),
 		numeric: input => parseFloat(input.val()),
@@ -553,11 +330,59 @@
 			}).done(response => {
 				console.log(response)
 			})
-			
+
 		})
 	})
 
-	
+	const getOrders = () => {
+        return new Promise(resolve => {
+            $.ajax({
+			url: '/admin/order',
+			type: 'GET',
+		}).done(response => {
+            //console.log(response)
+			resolve(response)
+		})
+        })
+
+	}
+
+    const appendOrder = (currentRowIndex, order) => {
+        const orderTemplate = $('#order-template').clone().css('visibility', 'visible')
+
+
+
+        //console.log(order.name)
+        console.log(orderTemplate.find('h3.service-title').text(order.name))
+
+        order.products.forEach(product => {
+
+        })
+
+        orderTemplate.appendTo(`#RowPedidos-${currentRowIndex}`)
+    }
+
+    const appendOrderRow = index => {
+        $('#order-body').append(`<div class="row" id="RowPedidos-${index}"></div>`)
+    }
+
+	getOrders().then(orders => {
+       // console.log(orders)
+        let currentRowIndex = 0
+
+        appendOrderRow(currentRowIndex)
+
+        orders.forEach((order, index) => {
+            if (index % 4 == 0) {
+                currentRowIndex++;
+                appendOrderRow(currentRowIndex)
+            }
+
+            appendOrder(currentRowIndex, order)
+        })
+    });
+
+
 </script>
 
 @stop
