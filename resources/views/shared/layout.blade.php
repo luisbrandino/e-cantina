@@ -100,7 +100,6 @@
 		</main>
 		<!-- Main End -->
 
-		<!-- Footer -->
 		<footer class="main-footer">
 			<div class="container">
 				<div class="row">

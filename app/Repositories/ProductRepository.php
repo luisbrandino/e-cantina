@@ -26,4 +26,19 @@ class ProductRepository {
         return Product::create($fields);
     }
 
+    public function edit($product, $fields) {
+        $fields['price'] = $fields['price'] * 100;
+
+        if (isset($fields['image_url'])) {
+            $this->_imageService->delete($product->image_url, ['/uploads', '/thumbnail-large', '/thumbnail-small', '/thumbnail']);
+            $fields['image_url'] = $this->_imageService->upload($fields['image_url'], config('project.product_image_options'));
+        }
+
+        return $product->update($fields);
+    }
+
+    public function getProducts() {
+        return Product::all();
+    }
+
 }

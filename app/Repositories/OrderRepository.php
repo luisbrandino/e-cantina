@@ -23,5 +23,25 @@ class OrderRepository {
         return Order::with('products')->get();
     }
 
+    public function getPendingOrders() {
+        return Order::with('products')->where('status', '=', 'pending')->get();
+    }
+
+    public function finish(Order $order) {
+        $order->update([
+            'status' => 'finished'
+        ]);
+
+        return true;
+    }
+
+    public function cancel(Order $order) {
+        $order->update([
+            'status' => 'cancelled'
+        ]);
+
+        return true;
+    }
+
 }
 

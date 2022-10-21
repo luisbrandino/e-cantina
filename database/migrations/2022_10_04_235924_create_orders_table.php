@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('collector');
-            $table->enum('status', ['finished', 'pending']);
+            $table->enum('status', ['finished', 'pending', 'cancelled']);
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->decimal('total');
             $table->timestamps();

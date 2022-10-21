@@ -67,14 +67,11 @@
 		<h3>Edição de produtos</h3>
 	</div>
 
-	<form method="POST" id="EditForm" name="EditForm">
+	<form class="product-form" method="POST" class="" id="EditForm" name="EditForm" action="">
 
 		<div class="content pb-1">
-			<select id="category2" class="wide price-list EditarProd" name="editarProd">
+			<select id="edit-select" class="wide price-list EditarProd" name="editarProd">
 				<option value="">Selecionar produto</option>
-				<option value=".Salgados">YX</option>
-				<option value=".Doces">XY</option>
-				<option value=".Bebidas">XZ</option>
 			</select>
 		</div>
 
@@ -86,10 +83,10 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="images" class="drop-container">
+								<label for="edit-image" class="drop-container">
 									<span class="drop-title">Arraste a imagem aqui</span>
 									ou
-									<input type="file" id="images" accept="image/*" required>
+									<input valueType="image" name="image" type="file" id="edit-image" accept="image/*">
 								</label>
 							</div>
 						</div>
@@ -97,34 +94,33 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="userNameCashPayment">Nome</label>
-								<input id="userNameCashPayment" class="form-control" name="username" type="text"
-									data-parsley-pattern="^[a-zA-Z\s.]+$" required />
+								<label for="edit-name">Nome</label>
+								<input valueType="string" id="edit-name" class="form-control" name="name" type="text"
+									data-parsley-pattern="^[a-zA-Z\s.]+$"/>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="phoneCashPayment">Ingredientes</label>
-								<input id="phoneCashPayment" class="form-control" name="phone" type="text"
-									data-parsley-pattern="^[0-9]+$" required />
+								<label for="edit-ingredients">Ingredientes</label>
+								<input valueType="stringToArray" id="edit-ingredients" class="form-control" name="ingredients" type="text"
+									data-parsley-pattern="^[0-9]+$"/>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="phoneCashPayment">Preços</label>
-								<input id="phoneCashPayment" class="form-control" name="preco" type="number" min="0"
-									required />
+								<label for="edit-price">Preços</label>
+								<input valueType="numeric" id="edit-price" class="form-control" name="price" type="number" min="0" step="0.01"/>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6 ">
-							<button type="submit" name="submit" id="submitOrder" class="btn-form-func">
+							<button type="submit" name="submit" id="submitEdit" class="btn-form-func">
 								<span class="btn-form-func-content">Atualizar</span>
 								<span class="icon"><i class="fa fa-check" aria-hidden="true"></i></span>
 							</button>
@@ -141,7 +137,7 @@
 						<div
 							class="col-md-1 justify-content-center align-content-center justify-content-center centerSwitch">
 							<label class="switch">
-								<input type="checkbox">
+								<input valueType="boolean" class="edit-on_menu" name="on_menu" type="checkbox">
 								<span class="slider round"></span>
 							</label>
 						</div>
@@ -243,33 +239,34 @@
 		<h3 class="editTittleProd">Pedidos Atuais</h3>
 		<div id="personalDetails">
 			<div class="order-body" id="order-body">
-
+				<h4 id="empty-orders" align="center">Não há mais pedidos pendentes.</h1>
 			</div>
-
 		</div>
 	</div>
 
 </div><!--fim do modal-->
 
-<div class="col-md-3" style="visibility: hidden" id="order-template">
+<div class="col-md-3 inactive-order" style="visibility: hidden" id="order-template">
     <div class="box text-center">
 		<h3 class="service-title"></h3>
 
 		<div class="contentOrders">
+		</div>
 
-			<p class="textDashboard"><span class="numberOrder"></span> </p>
-
+		<div class="ExtraInfo">
+			<p class="TextEntra">Coletor: <span class="collector"></span></p>
+			<p class="TextEntra">Preço total: R$<span class="total"></span></p>
 		</div>
 
 		<div class="row">
 			<div class="col-md-7 ">
-				<button type="submit" name="finish" class="btn-form-func2">
+				<button type="submit" name="finish" class="btn-form-func2 finish-button">
 					<span class="btn-form-func-content">Finalizar</span>
 				</button>
 			</div>
 
 			<div class="col-md-5 ">
-				<button type="button" name="cancel" class="btn-form-func2 btn-form-func-alt-color1 backward">
+				<button type="button" name="cancel" class="btn-form-func2 btn-form-func-alt-color1 backward cancel-button">
 					<span class="btn-form-func-content">Cancelar</span>
 				</button>
 		    </div>
@@ -293,8 +290,8 @@
 		string: input => input.val().toString(),
 		numeric: input => parseFloat(input.val()),
 		array: input => JSON.stringify(input.val().toString().split(', ')),
-		image: input => input.get(0).files[0]
-
+		image: input => input.get(0).files[0],
+		stringToArray: input => JSON.stringify(input.val().split(', ')),
 	}
 
 	const forms = $('.product-form').toArray();
@@ -309,8 +306,13 @@
 
 			inputs.forEach(input => {
 				input = $(input);
-				payload[input.attr('name')] = validators[input.attr('valueType')] ? validators[input.attr('valueType')](input) : input.val();
+				payload[input.attr('name')] = validators[input.attr('valueType')] ? validators[input.attr('valueType')](input) : undefined;
 			})
+
+			for (const key in payload) {
+				if (!payload[key])
+					delete payload[key]
+			}
 
 			const action = $(form).attr('action')
 			const method = $(form).attr('method').toLowerCase()
@@ -337,7 +339,7 @@
 	const getOrders = () => {
         return new Promise(resolve => {
             $.ajax({
-			url: '/admin/order',
+			url: '/admin/order/pending',
 			type: 'GET',
 		}).done(response => {
             //console.log(response)
@@ -348,16 +350,36 @@
 	}
 
     const appendOrder = (currentRowIndex, order) => {
+		$('#empty-orders').css('visibility', 'hidden');
         const orderTemplate = $('#order-template').clone().css('visibility', 'visible')
+		orderTemplate.removeClass('inactive-order')
+		orderTemplate.addClass('order')
 
+		orderTemplate.attr('id', `order-${order.id}`)
+		orderTemplate.attr('orderId', order.id)
 
-
-        //console.log(order.name)
-        console.log(orderTemplate.find('h3.service-title').text(order.name))
+        orderTemplate.find('h3.service-title').text(order.name)
 
         order.products.forEach(product => {
-
+			orderTemplate.find('div.contentOrders').append(`<p class="textDashboard"><span class="numberOrder">${product.pivot.quantity}X </span>${product.name}</p>`)
         })
+
+		orderTemplate.find('.collector').text(order.collector);
+		orderTemplate.find('.total').text(order.total.toString().replace('.', ','));
+
+		orderTemplate.find('.finish-button').on('click', function () {
+			onFinish(order.id)
+		})
+
+		orderTemplate.find('.cancel-button').on('click', function () {
+			onCancel(order.id)
+		})
+
+		orderTemplate.on('remove', () => {
+			const rowId = orderTemplate.parent().attr('id').split('-')[1]
+
+			onOrderRemoved(Number(rowId))
+		})
 
         orderTemplate.appendTo(`#RowPedidos-${currentRowIndex}`)
     }
@@ -367,7 +389,6 @@
     }
 
 	getOrders().then(orders => {
-       // console.log(orders)
         let currentRowIndex = 0
 
         appendOrderRow(currentRowIndex)
@@ -382,6 +403,113 @@
         })
     });
 
+	const onFinish = orderId => {
+		$.post(`/admin/order/${orderId}/finish`)
+			.done(response => {
+				if (!response)
+					return alert('Ocorreu um erro :(')
+				
+				alert('Pedido finalizado!')
+		
+				const order = $(`#order-${orderId}`)
+
+				order.hide('slow', () => order.remove())
+			})
+			
+
+		console.log('Finalizando pedido ' + orderId)
+	}
+
+	const onCancel = orderId => {
+		$.post(`/admin/order/${orderId}/cancel`)
+			.done(cancelled => {
+				if (!cancelled) 
+					return alert('Ocorreu um erro :(')
+				
+				alert('Pedido cancelado!')
+
+				order.hide('slow', () => order.remove())
+			})
+
+		console.log('Cancelando pedido ' + orderId)
+	}
+
+	const onOrderRemoved = rowId => {
+		const hasPendingOrders = $('.order').length > 1 
+
+		if (!hasPendingOrders)
+			$('#empty-orders').css('visibility', 'visible');
+
+		const nextRowExists = $(`#RowPedidos-${rowId + 1}`).length
+
+		if (!nextRowExists)
+			return
+
+		const currentRow = $(`#RowPedidos-${rowId}`);
+
+		const firstOrderFromNextRow = $(`#RowPedidos-${rowId + 1}`).find('.order')[0];
+
+		currentRow.append(firstOrderFromNextRow)
+	}
+
+	const getProducts = () => {
+		return new Promise(resolve => {
+			$.ajax({
+				url: '/admin/products',
+				type: 'GET',
+			}).done(resolve)
+		});
+	}
+
+	const find = (array, property, value) => {
+		for (const item of array) {
+			if (item[property] == value)
+				return item 
+		}
+		return null
+	}
+
+	const changeEditInputs = product => {
+		const fillable = [
+			'name',
+			'ingredients',
+			'price',
+			'on_menu'
+		]
+
+		for (const attribute in product) {
+			if (!fillable.includes(attribute))
+				continue
+
+			$(`#edit-${attribute}`).val(product[attribute])
+		}
+
+		$('#EditForm').attr('action', `/admin/products/${product.id}/edit`)
+	}
+
+	getProducts().then(products => {
+		products.forEach((product, index) => {
+			product.ingredients = product.ingredients.join(', ')
+
+			$('#edit-select').append(`<option class="product-select" index="${index}" value="${product.id}">${product.name}</option>`)
+		})
+
+		$('#edit-select').on('change', () => {
+				const option = $("#edit-select option:selected")
+
+				const index = option.attr('index');
+
+				let product = products[index]
+
+				if (product.id != option.val())
+					product = find(products, 'id', option.val())
+
+				if (!product)
+					return 
+
+				changeEditInputs(product)
+			})
+	})
 
 </script>
 

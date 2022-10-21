@@ -36,6 +36,15 @@ class ImageService {
         return $filename;
     }
 
+    public function delete($filename, $paths) {
+        foreach($paths as $path) {
+            $finalPath = public_path($path) . '/' . $filename;
+
+            if (file_exists($finalPath))
+                unlink($finalPath);
+        }
+    }
+
     private function _upload($thumbnail, $path, $size) {
         $thumbnail->resize($size[0], $size[1], function ($constraint) {
             //$constraint->aspectRatio();

@@ -53,15 +53,17 @@ Route::middleware('auth')->group(function () {
 Route::name('admin')->prefix('admin')->group(function() {
 
     Route::get('/', function() {
-        return '<h1> Você está no admin </h1>';
+        return redirect()->to('/admin/dashboard');
     });
 
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
-
     // Products (Create, Update, Delete)
+    Route::get('/products', [ProductController::class, 'get'])->name('.products');
     Route::post('/products/create', [ProductController::class, 'create'])->name('.products.create');
+    Route::post('/products/{product}/edit', [ProductController::class, 'edit'])->name('.products.edit');
 
-    Route::get('/order', [OrderController::class, 'get']);
-
+    Route::get('/order/pending', [OrderController::class, 'getPendingOrders']);
+    Route::post('/order/{order}/finish', [OrderController::class, 'finish'])->name('.order.finish');
+    Route::post('/order/{order}/cancel', [OrderController::class, 'finish'])->name('.order.cancel');
 });
