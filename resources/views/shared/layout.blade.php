@@ -75,7 +75,7 @@
                                 @endguest
 
                                 @auth
-                                	<li><span>Bem-vindo, {{ Auth::user()->name }}</span></li>
+                                	<li><span class="loginText">Bem-vindo, {{ Auth::user()->name }}</span></li>
                                 @endauth
 							</ul>
 						</nav>
@@ -114,7 +114,7 @@
 							<li><i class="fa fa-angle-right"></i> <a href="../index.html" class="footer-link">Home</a></li>
 							<li><i class="fa fa-angle-right"></i> <a href="../pay-with-card-online/index.php" class="footer-link">Cardápio</a></li>
 						</ul>
-					</div>	
+					</div>
 					<!--<div class="col-md-2">
 						<h5 class="footer-heading">Find Us On</h5>
 						<ul class="list-unstyled social-links">
@@ -206,7 +206,7 @@
 	</div>
 	<!-- Modal Options for Item 01 End -->
 
-	<!-- Modal Options for Item 02 
+	<!-- Modal Options for Item 02
 	<div id="modalOptionsItem02" class="modal-popup zoom-anim-dialog mfp-hide">
 		<div class="small-dialog-header">
 			<h3>Bolognese</h3>
@@ -262,7 +262,7 @@
 	</div>
 	<!-- Modal Options for Item 02 End -->
 
-	<!-- Modal Options for Item 03 
+	<!-- Modal Options for Item 03
 	<div id="modalOptionsItem03" class="modal-popup zoom-anim-dialog mfp-hide">
 		<div class="small-dialog-header">
 			<h3>Castello</h3>
@@ -317,7 +317,7 @@
 	</div>
 	<!-- Modal Options for Item 03 End -->
 
-	<!-- Modal Options for Item 04 
+	<!-- Modal Options for Item 04
 	<div id="modalOptionsItem04" class="modal-popup zoom-anim-dialog mfp-hide">
 		<div class="small-dialog-header">
 			<h3>Fitness</h3>

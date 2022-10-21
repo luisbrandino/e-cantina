@@ -19,7 +19,7 @@
 
 	// =====================================================
 	// SCROLL ANIMATIONS
-	// =====================================================	
+	// =====================================================
 	window.sr = ScrollReveal();
 
 	sr.reveal('.animated-element', {
@@ -127,7 +127,7 @@
 
 		// Init Isotope
 		var $grid = $('.grid').isotope({
-			itemSelector: '.isotope-item',			
+			itemSelector: '.isotope-item',
 			filter: function () {
 				var $this = $(this);
 				var searchResult = qsRegex ? $this.text().match(qsRegex) : true;
@@ -245,7 +245,7 @@
 
 	// =====================================================
 	// GALLERY
-	// =====================================================	
+	// =====================================================
 	$('.menu-gallery').each(function () {
 		$(this).magnificPopup({
 			delegate: 'figure a',
@@ -295,7 +295,7 @@
 	// INIT DROPDOWNS
 	// =====================================================
 	$('#category').niceSelect();
-	$('#category2').niceSelect();
+	$('#edit-select').niceSelect();
 	// =====================================================
 	// FORM LABELS
 	// =====================================================
@@ -309,6 +309,10 @@
 	new FloatLabels('#CreateForm', {
 		style: 1
 	});
+    new FloatLabels('#loginForm', {
+		style: 1
+	});
+
 
 	// =====================================================
 	// FORM INPUT VALIDATION
@@ -529,9 +533,9 @@
 					// Update total
 					updateTotal();
 
-				});	
+				});
 			});
-            
+
 		});
 
 		// Handle qty plus
@@ -543,12 +547,12 @@
 			// If qty number is less than the max.limit
 			if (actualQty < maxQty) {
 
-				let productId = $(this).parent().attr('productId'); 
+				let productId = $(this).parent().attr('productId');
 
 				$.post(`/cart/update/${productId}`, { quantity: 1 }, (success) => {
 					if (!success)
 						return alert('Algum erro ocorreu:', success);
-	
+
 					// Increment
 					qtyInput.val(actualQty + 1);
 					actualQty = qtyInput.val();
@@ -574,7 +578,7 @@
 
 			if (actualQty > 1) {
 
-				let productId = $(this).parent().attr('productId'); 
+				let productId = $(this).parent().attr('productId');
 
 				$.post(`/cart/update/${productId}`, { quantity: -1 }, (success) => {
 					if (!success)
@@ -695,7 +699,7 @@
 
 				} else { // If not: put it into the cart
 
-                    
+
 
 				}
 

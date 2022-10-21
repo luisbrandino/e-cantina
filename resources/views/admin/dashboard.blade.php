@@ -86,7 +86,7 @@
 								<label for="edit-image" class="drop-container">
 									<span class="drop-title">Arraste a imagem aqui</span>
 									ou
-									<input valueType="image" name="image" type="file" id="edit-image" accept="image/*">
+									<input valueType="image" name="image_url" type="file" id="edit-image" accept="image/*">
 								</label>
 							</div>
 						</div>
@@ -113,7 +113,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="edit-price">Preços</label>
-								<input valueType="numeric" id="edit-price" class="form-control" name="price" type="number" min="0" step="0.01"/>
+								<input valueType="numeric" id="edit-price" class="form-control" name="price" type="number" min="0" step="any"/>
 							</div>
 						</div>
 					</div>
@@ -137,7 +137,7 @@
 						<div
 							class="col-md-1 justify-content-center align-content-center justify-content-center centerSwitch">
 							<label class="switch">
-								<input valueType="boolean" class="edit-on_menu" name="on_menu" type="checkbox">
+								<input value="true" valueType="boolean" id="edit-on_menu" name="on_menu" type="checkbox">
 								<span class="slider round"></span>
 							</label>
 						</div>
@@ -201,7 +201,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="price">Preços</label>
-								<input valueType="numeric" id="price" class="form-control" name="price" type="number" min="0" step="0.01"
+								<input valueType="numeric" id="price" class="form-control" name="price" type="number" min="0" step="any"
 									required />
 							</div>
 						</div>
@@ -292,6 +292,10 @@
 		array: input => JSON.stringify(input.val().toString().split(', ')),
 		image: input => input.get(0).files[0],
 		stringToArray: input => JSON.stringify(input.val().split(', ')),
+        boolean: input => {
+            console.log(input.prop('checked'))
+            return input.prop('checked')
+        }
 	}
 
 	const forms = $('.product-form').toArray();
@@ -305,12 +309,13 @@
 			const payload = {}
 
 			inputs.forEach(input => {
-				input = $(input);
+                input = $(input);
+                console.log(input.attr('name'))
 				payload[input.attr('name')] = validators[input.attr('valueType')] ? validators[input.attr('valueType')](input) : undefined;
 			})
 
 			for (const key in payload) {
-				if (!payload[key])
+				if (payload[key] === undefined)
 					delete payload[key]
 			}
 
@@ -408,14 +413,14 @@
 			.done(response => {
 				if (!response)
 					return alert('Ocorreu um erro :(')
-				
+
 				alert('Pedido finalizado!')
-		
+
 				const order = $(`#order-${orderId}`)
 
 				order.hide('slow', () => order.remove())
 			})
-			
+
 
 		console.log('Finalizando pedido ' + orderId)
 	}
@@ -423,9 +428,9 @@
 	const onCancel = orderId => {
 		$.post(`/admin/order/${orderId}/cancel`)
 			.done(cancelled => {
-				if (!cancelled) 
+				if (!cancelled)
 					return alert('Ocorreu um erro :(')
-				
+
 				alert('Pedido cancelado!')
 
 				order.hide('slow', () => order.remove())
@@ -435,7 +440,7 @@
 	}
 
 	const onOrderRemoved = rowId => {
-		const hasPendingOrders = $('.order').length > 1 
+		const hasPendingOrders = $('.order').length > 1
 
 		if (!hasPendingOrders)
 			$('#empty-orders').css('visibility', 'visible');
@@ -464,7 +469,7 @@
 	const find = (array, property, value) => {
 		for (const item of array) {
 			if (item[property] == value)
-				return item 
+				return item
 		}
 		return null
 	}
@@ -484,31 +489,54 @@
 			$(`#edit-${attribute}`).val(product[attribute])
 		}
 
+        $('#edit-on_menu').prop('checked', product.on_menu)
+
 		$('#EditForm').attr('action', `/admin/products/${product.id}/edit`)
 	}
+
 
 	getProducts().then(products => {
 		products.forEach((product, index) => {
 			product.ingredients = product.ingredients.join(', ')
+            product.price = Number(product.price.toString().replace(',', '.'))
+
+            const option = $(`<li data-value="" index="${index}" value="${product.id} class="option selected focus">${product.name}</li>`)
+
+            option.click(() => {
+                $('.current').text(option.text())
+
+                onChange(option)
+            })
+
+            $('#EditForm').find('.list').append(option)
 
 			$('#edit-select').append(`<option class="product-select" index="${index}" value="${product.id}">${product.name}</option>`)
 		})
 
+        $('li').on('click', () => {
+            console.log($( this ))
+        })
+
+        const onChange = option => {
+            const index = option.attr('index');
+
+            let product = products[index]
+
+            if (product.id != option.val())
+                product = find(products, 'id', option.val())
+
+            if (!product)
+                return
+
+            changeEditInputs(product)
+        }
+
+
 		$('#edit-select').on('change', () => {
-				const option = $("#edit-select option:selected")
+			const option = $("#edit-select option:selected")
 
-				const index = option.attr('index');
-
-				let product = products[index]
-
-				if (product.id != option.val())
-					product = find(products, 'id', option.val())
-
-				if (!product)
-					return 
-
-				changeEditInputs(product)
-			})
+			onChange(option)
+		})
 	})
 
 </script>

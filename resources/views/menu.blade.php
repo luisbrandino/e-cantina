@@ -159,12 +159,12 @@ Cardápio
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="messageCashPayment">Nome do coletor</label>
-                                                <input name="collector" id="messageCashPayment" class="form-control" name="message" type="text" data-parsley-pattern="^[a-zA-Z0-9\s.:,!?']+$" />
+                                                <input name="collector" id="messageCashPayment" class="form-control" name="message" type="text" data-parsley-pattern="^[a-zA-Z0-9\s.:,!?']+$" required/>
                                             </div>
                                         </div>
                                     </div>

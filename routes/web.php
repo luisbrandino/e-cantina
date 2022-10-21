@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/admin/login', [AdminController::class, 'getLoginPage']);
+Route::post('/admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
+
 Route::name('admin')->prefix('admin')->group(function() {
 
     Route::get('/', function() {

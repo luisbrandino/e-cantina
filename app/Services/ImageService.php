@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services;
 
@@ -37,8 +37,11 @@ class ImageService {
     }
 
     public function delete($filename, $paths) {
+        return 'trueee';
         foreach($paths as $path) {
-            $finalPath = public_path($path) . '/' . $filename;
+            $finalPath = public_path($path . '/' . $filename);
+
+            return file_exists($finalPath);
 
             if (file_exists($finalPath))
                 unlink($finalPath);

@@ -34,15 +34,16 @@ class ProductEditRequest extends FormRequest
 
     public function getValidatorInstance()
     {
-        $this->formatIngredients();
+        $this->formatFields();
 
         return parent::getValidatorInstance();
     }
 
-    public function formatIngredients()
+    public function formatFields()
     {
         $this->merge([
-            'ingredients' => json_decode($this->request->get('ingredients'))
+            'ingredients' => json_decode($this->request->get('ingredients')),
+            'on_menu' => $this->request->get('on_menu') == 'false' ? false : true
         ]);
     }
 }
