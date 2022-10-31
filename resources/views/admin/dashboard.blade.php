@@ -389,6 +389,40 @@
         orderTemplate.appendTo(`#RowPedidos-${currentRowIndex}`)
     }
 
+    const clearOrders = () => {
+        $('#order-body').find('*').not('#empty-orders').empty()
+    }
+
+    const createAlert = (type, message) => {
+
+    }
+
+    function toggleAlert(){
+        $(".alert").toggleClass('in out');
+        return false; // Keep close.bs.alert event from removing from DOM
+    }
+
+
+    setInterval(() => {
+        getOrders().then(orders => {
+            console.log('pegando novos pedidos')
+            clearOrders()
+
+            let currentRowIndex = 0
+
+            appendOrderRow(currentRowIndex)
+
+            orders.forEach((order, index) => {
+                if (index % 4 == 0) {
+                    currentRowIndex++;
+                    appendOrderRow(currentRowIndex)
+                }
+
+                appendOrder(currentRowIndex, order)
+            })
+        });
+    }, 5 * 1000)
+
     const appendOrderRow = index => {
         $('#order-body').append(`<div class="row" id="RowPedidos-${index}"></div>`)
     }
@@ -432,6 +466,8 @@
 					return alert('Ocorreu um erro :(')
 
 				alert('Pedido cancelado!')
+
+                const order = $(`#order-${orderId}`)
 
 				order.hide('slow', () => order.remove())
 			})
