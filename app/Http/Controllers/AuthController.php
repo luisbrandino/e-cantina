@@ -21,6 +21,14 @@ class AuthController extends Controller
         return redirect('/');
     }
 
+    public function showAdminLogin() {
+        return view('admin.login');
+    }
+
+    public function adminAuth() {
+
+    }
+
     public function logout() {
         $this->_repository->logout();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminLoginRequest;
 use App\Repositories\AdminRepository;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,12 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
-    public function auth() {
+    public function auth(AdminLoginRequest $request) {
+        if ($this->_repository->auth($request->validated())) {
+            return redirect()->route('admin.dashboard');
+        }
 
+        return redirect()->route('admin.login');
     }
 
 }
