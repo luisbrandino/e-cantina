@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>E-cantina | cardápio</title>
+	<title>E-cantina | @yield('title')</title>
 
 	<!-- Favicon -->
 	<link href="../img/favicon.png" rel="shortcut icon">
@@ -100,7 +100,7 @@
 		</main>
 		<!-- Main End -->
 
-		<footer class="main-footer">
+		<footer class="main-footer footerBottom">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3">

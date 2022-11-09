@@ -34,12 +34,7 @@ Route::get('/login', function () {
 
 Route::get('/cardapio', [MenuController::class, 'index'])->name('menu');
 
-Route::get('/cart', function () {
-    return view('cart');
-})->middleware('auth');
-
 Route::middleware('auth')->group(function () {
-
     // Cart
     Route::post('/cart/add/{product}', [CartController::class, 'add']);
     Route::post('/cart/update/{product}', [CartController::class, 'update']);

@@ -26,6 +26,18 @@
 								</div>
 							</a>
 						</div>
+                        <div class="col-lg-6 animated-element">
+							<a href="#" class="service-link">
+								<div class="box text-center"> <a href="#modalDetailsItem04"
+										class="item-body-link modal-opener">
+										<div class="icon d-flex align-items-end"><i class="icon icon-credit-card2"></i>
+										</div>
+										<h3 class="service-title">Adicionar produtos22</h3>
+										<p class="textDashboard">Aqui é onde você cria novos produtos para a página.</p>
+									</a>
+								</div>
+							</a>
+						</div>
 
 						<div class="col-lg-6 animated-element">
 							<a href="#" class="service-link">
@@ -226,6 +238,26 @@
 		<!-- Step 2: Checkout End -->
 
 	</form>
+
+</div>
+
+<div id="modalDetailsItem04" class="dashboardProduteCreate-popup zoom-anim-dialog mfp-hide">
+
+		<!-- Step 2: Checkout -->
+		<div class="step">
+			<h3 class="editTittle2">Formulário de criação</h3>
+			<div id="personalDetails">
+
+					<!--<div class="row footer">
+							<div class="col-md-12 text-center">
+								<small>Copyrigth FoodBoard 2021.</small>
+							</div>
+						</div>-->
+				</div>
+			</div>
+		</div>
+		<!-- Step 2: Checkout End -->
+
 
 </div>
 
