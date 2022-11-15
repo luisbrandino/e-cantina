@@ -31,10 +31,10 @@ class AdminRepository {
         $user = AdminUser::where(['email' => $email])->first();
 
         if (Hash::check($password, $user->password)) {
-            Session::set('admin', true);
+            session()->put('admin', true);
             return true;
         } else {
-            Session::flash('error', 'E-mail ou senha inválidos.');
+            session()->flash('error', 'E-mail ou senha inválidos.');
             return false;
         }
 

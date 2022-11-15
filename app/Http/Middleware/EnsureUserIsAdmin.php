@@ -16,8 +16,9 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ()
-
-        return $next($request);
+        if (session()->has('admin') && session()->get('admin'))
+            return $next($request);
+    
+        return redirect()->route('admin.login');
     }
 }

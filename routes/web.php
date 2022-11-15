@@ -48,13 +48,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin/login', [AdminController::class, 'getLoginPage'])->name('admin.login');
 Route::post('/admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
 
-Route::name('admin')->prefix('admin')->group(function() {
+Route::name('admin')->middleware(['EnsureUserIsAdmin'])->prefix('admin')->group(function() {
 
     Route::get('/', function() {
         return redirect()->to('/admin/dashboard');
     });
 
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('.dashboard');
 
     // Products (Create, Update, Delete)
     Route::get('/products', [ProductController::class, 'get'])->name('.products');
