@@ -1,15 +1,15 @@
 @extends('shared.layout')
 
+@section('title')
+    Pedido #{{ $order->id }}
+@stop 
+
 @section('sub-header')
     Pedido #{{ $order->id }}
 @stop
 
 @section('content')
-
-<!-- Order -->
-
-<!-- Order -->
-
+<!-- Pedido -->
 <div class="container">
     <table class="tbl-cart col-10" cellpadding="10" cellspacing="0">
                         <thead>
@@ -56,12 +56,12 @@
                     
                     <p class="mb-0 distanciarFooter"><a href="../" class="btn-2 col-10 text-center">Voltar para a
                             Home</a></p>
-            </div>
-            <!-- Row End -->
         </div>
-        <!-- Container End -->
+            <!-- Row End -->
     </div>
-    <!-- Order End -->
+        <!-- Container End -->
+</div>
+<!-- Fim Pedido -->
 </div>
 
 @stop
