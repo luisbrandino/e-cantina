@@ -20,10 +20,4 @@ class HomeController extends Controller
 
         return view('home', ['contents' => $contents]);
     }
-
-    public function testCart() {
-        $contents = \Cart::session(Auth::user()->microsoft_id)->getContent();
-
-        return view('cart', ['contents' => $contents]);
-    }
 }

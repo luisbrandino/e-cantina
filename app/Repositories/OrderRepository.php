@@ -24,7 +24,7 @@ class OrderRepository {
     }
 
     public function getPendingOrders() {
-        return Order::with('products')->where('status', '=', 'pending')->get();
+        return Order::with('products')->where('status', '=', 'pending')->orderBy('created_at', 'DESC')->get();
     }
 
     public function finish(Order $order) {

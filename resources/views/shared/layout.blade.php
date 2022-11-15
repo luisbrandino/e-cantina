@@ -100,7 +100,7 @@
 		</main>
 		<!-- Main End -->
 
-		<footer class="main-footer">
+		<footer class="main-footer footerBottom">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3">

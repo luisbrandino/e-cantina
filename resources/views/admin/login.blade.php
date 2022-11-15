@@ -5,6 +5,7 @@
 @section('content')
 <div class="LoginPadding">
     <form action="{{ route('admin.auth') }}" method="POST" id="loginForm" name="loginForm">
+        @csrf
 
         <!-- Step 2: Checkout -->
         <div class="step step2">
