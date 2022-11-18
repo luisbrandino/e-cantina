@@ -53,7 +53,7 @@ Home
                     <small>Cardápio do dia</small>
                     <h2>Cardápio</h2>
                     <p>Reserve seu salgado direto do seu bolso.</p>
-                    <a href="pay-with-card-online/" class="btn-1">Cardápio</a>
+                    <a href="cardapio/" class="btn-1">Cardápio</a>
                 </div>
             </div>
         </div>
