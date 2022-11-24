@@ -26,18 +26,6 @@
 								</div>
 							</a>
 						</div>
-                        <div class="col-lg-6 animated-element">
-							<a href="#" class="service-link">
-								<div class="box text-center"> <a href="#modalDetailsItem04"
-										class="item-body-link modal-opener">
-										<div class="icon d-flex align-items-end"><i class="icon icon-credit-card2"></i>
-										</div>
-										<h3 class="service-title">Adicionar produtos22</h3>
-										<p class="textDashboard">Aqui é onde você cria novos produtos para a página.</p>
-									</a>
-								</div>
-							</a>
-						</div>
 
 						<div class="col-lg-6 animated-element">
 							<a href="#" class="service-link">
@@ -139,7 +127,7 @@
 						</div>
 
 						<div class="col-md-5 justify-content-center align-content-center ">
-							<button type="button" name="backward"
+							<button type="button" name="backward" onclick="deleteProduct()"
 								class="btn-form-func btn-form-func-alt-color1 backward">
 								<span class="btn-form-func-content">Apagar</span>
 								<span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span>
@@ -241,25 +229,6 @@
 
 </div>
 
-<div id="modalDetailsItem04" class="dashboardProduteCreate-popup zoom-anim-dialog mfp-hide">
-
-		<!-- Step 2: Checkout -->
-		<div class="step">
-			<h3 class="editTittle2">Formulário de criação</h3>
-			<div id="personalDetails">
-
-					<!--<div class="row footer">
-							<div class="col-md-12 text-center">
-								<small>Copyrigth FoodBoard 2021.</small>
-							</div>
-						</div>-->
-				</div>
-			</div>
-		</div>
-		<!-- Step 2: Checkout End -->
-
-
-</div>
 
 <div id="modalDetailsItem03" class="dashboardModal-popup zoom-anim-dialog mfp-hide">
 	<div class="small-dialog-header">
@@ -562,13 +531,34 @@
 		$('#EditForm').attr('action', `/admin/products/${product.id}/edit`)
 	}
 
+	let selectedProduct
+
+	const deleteProduct = () => {
+		const product = selectedProduct
+
+		$.post(`/admin/products/${product.id}/delete`)
+			.done(deleted => {
+				if (!deleted)
+					return alert('Ocorreu um erro ao deletar')
+
+				alert('Produto deletado com sucesso!')
+
+				$(`#edit-select option[value=${product.id}]`).remove();
+
+				const itemsInDropDownList = $("#edit-select option").length;
+				//const selectedIndex = $("#listOfMonths").prop("selectedIndex");
+
+				$("#edit-select").prop("selectedIndex", itemsInDropDownList);
+			})
+	}
+
 
 	getProducts().then(products => {
 		products.forEach((product, index) => {
 			product.ingredients = product.ingredients.join(', ')
             product.price = Number(product.price.toString().replace(',', '.'))
 
-            const option = $(`<li data-value="" index="${index}" value="${product.id} class="option selected focus">${product.name}</li>`)
+            const option = $(`<li data-value="" index="${index}" value="${product.id}" class="option selected focus">${product.name}</li>`)
 
             option.click(() => {
                 $('.current').text(option.text())
@@ -581,14 +571,13 @@
 			$('#edit-select').append(`<option class="product-select" index="${index}" value="${product.id}">${product.name}</option>`)
 		})
 
-        $('li').on('click', () => {
-            console.log($( this ))
-        })
-
         const onChange = option => {
             const index = option.attr('index');
 
             let product = products[index]
+
+			if (!product)
+				return
 
             if (product.id != option.val())
                 product = find(products, 'id', option.val())
@@ -596,9 +585,10 @@
             if (!product)
                 return
 
+			selectedProduct = product
+
             changeEditInputs(product)
         }
-
 
 		$('#edit-select').on('change', () => {
 			const option = $("#edit-select option:selected")

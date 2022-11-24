@@ -37,6 +37,11 @@ class ProductRepository {
         return $product->update($fields);
     }
 
+    public function delete($product) {
+        $product->delete();
+        return true;
+    }
+
     public function getProducts() {
         return Product::all();
     }

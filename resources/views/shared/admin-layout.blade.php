@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Food order wizard with online payment">
 	<meta name="author" content="UWS">
-	<title>E-cantina | @yield('title')</title>
+	<title>E-Cantina | @yield('title')</title>
 
 	<!-- Favicon -->
 	<link href="../img/favicon.png" rel="shortcut icon">
@@ -58,7 +58,7 @@
 				<div class="row">
 					<div class="col-lg-3 col-6">
 						<div id="logo">
-							<h1><a href="https://ultimatewebsolutions.net/foodboard/" title="FoodBoard">E-cantina</a>
+							<h1><a href="/" title="FoodBoard">E-cantina</a>
 							</h1>
 						</div>
 					</div>
@@ -70,7 +70,7 @@
 						<!-- Menu -->
 						<nav id="menu" class="main-menu">
 							<ul>
-								<li><span><a href="https://ultimatewebsolutions.net/foodboard/">Home</a></span></li>
+								<li><span><a href="/">Home</a></span></li>
 								<li>
 									<span><a href="#">Order <i class="fa fa-chevron-down"></i></a></span>
 									<ul>

@@ -60,6 +60,7 @@ Route::name('admin')->middleware(['EnsureUserIsAdmin'])->prefix('admin')->group(
     Route::get('/products', [ProductController::class, 'get'])->name('.products');
     Route::post('/products/create', [ProductController::class, 'create'])->name('.products.create');
     Route::post('/products/{product}/edit', [ProductController::class, 'edit'])->name('.products.edit');
+    Route::post('/products/{product}/delete', [ProductController::class, 'delete'])->name('.products.delete');
 
     Route::get('/order/pending', [OrderController::class, 'getPendingOrders']);
     Route::post('/order/{order}/finish', [OrderController::class, 'finish'])->name('.order.finish');

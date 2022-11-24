@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductDeleteRequest;
 use App\Http\Requests\ProductEditRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
@@ -26,6 +27,10 @@ class ProductController extends Controller
 
     public function edit(ProductEditRequest $request, Product $product) {
         return $this->_repository->edit($product, $request->validated());
+    }
+
+    public function delete(Product $product) {
+        return $this->_repository->delete($product);
     }
 
 
