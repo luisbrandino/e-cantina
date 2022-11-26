@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\ProductRepository;
 use App\Repositories\CartRepository;
 
@@ -17,7 +18,9 @@ class MenuRepository {
         $contents = [];
 
         $contents['products'] = $this->_productRepository->getProductsOnMenu();
-        $contents['cart'] = $this->_cartRepository->getItems();
+
+        if (Auth::check())
+            $contents['cart'] = $this->_cartRepository->getItems();
 
         return $contents;
     }

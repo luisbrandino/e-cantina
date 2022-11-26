@@ -403,15 +403,17 @@
 	<script src="../js/scripts.js"></script>
 
 	<script>
-	@if (Request::is('cardapio'))
-		@foreach ($contents['cart'] as $item)
-    		window.addItem({{ $item->associatedModel->id }}, {{ $item->quantity }});
-    		console.log('add', {{ $item->associatedModel->id  }})
-			console.log('quantity', {{ $item->quantity }})
-		@endforeach
-	@endif
+    @auth
+        @if (Request::is('cardapio'))
+            @foreach ($contents['cart'] as $item)
+                window.addItem({{ $item->associatedModel->id }}, {{ $item->quantity }});
+                console.log('add', {{ $item->associatedModel->id  }})
+                console.log('quantity', {{ $item->quantity }})
+            @endforeach
+        @endif
+    @endauth
 	</script>
-	
+
 </body>
 
 </html>
