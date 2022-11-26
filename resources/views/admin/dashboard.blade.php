@@ -336,7 +336,10 @@
 				processData: false,
 				contentType: false
 			}).done(response => {
-				console.log(response)
+				if ($(form).attr('name') == 'CreateForm') 
+					return alert('Produto criado com sucesso.')
+				
+				return alert('Produto editado com sucesso.')
 			})
 
 		})
@@ -541,14 +544,16 @@
 				if (!deleted)
 					return alert('Ocorreu um erro ao deletar')
 
-				alert('Produto deletado com sucesso!')
+				alert('Produto apagado com sucesso!')
 
-				$(`#edit-select option[value=${product.id}]`).remove();
+				location.reload();
+
+				/*$(`#edit-select option[value=${product.id}]`).remove();
 
 				const itemsInDropDownList = $("#edit-select option").length;
 				//const selectedIndex = $("#listOfMonths").prop("selectedIndex");
 
-				$("#edit-select").prop("selectedIndex", itemsInDropDownList);
+				$("#edit-select").prop("selectedIndex", itemsInDropDownList);*/
 			})
 	}
 

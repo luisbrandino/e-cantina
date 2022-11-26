@@ -504,13 +504,18 @@
 	}
 
 	// Function to insert item into its dedicated cart row based on: id, rowId, itemSubtitle, thumbnailPath, itemTitle, extraTitle, itemPrice
-	function insertItemIntoCartRow(id, rowId, itemSubtitle, thumbnailPath, itemTitle, extraTitle, itemPrice, productId) {
+	function insertItemIntoCartRow(id, rowId, itemSubtitle, thumbnailPath, itemTitle, extraTitle, itemPrice, productId, quantity) {
+		quantity = quantity || 1
+		//$(this).parent('.qty-buttons').find('.qty').val(quantity);
+		console.log(quantity)
 
 		// Create the dedicated row for the cart element
 		$('#itemList').append('<li id="cartItem' + id + rowId + '"></li>');
 
 		// Insert item into its dedicated row in the cart
-		$('#cartItem' + id + rowId).html('<div class="order-list-img"><img src="' + thumbnailPath + '" alt=""></div><div class="order-list-details"><h4>' + itemTitle + '<br/> <small>' + itemSubtitle + extraTitle + '</small> </h4> <div class="qty-buttons" productId="' + productId + '"> <input type="button" value="+" class="qtyplus" name="plus"> <input type="text" name="qty" value="1" class="qty form-control"> <input type="button" value="-" class="qtyminus" name="minus"> </div><div class="order-list-price format-price">' + itemPrice.toFixed(2) + '</div><div class="order-list-delete"><a href="javascript:;" id="deleteCartItem' + id + rowId + '"><i class="icon icon-trash"></i></a></div></div>');
+		$('#cartItem' + id + rowId).html('<div class="order-list-img"><img src="' + thumbnailPath + '" alt=""></div><div class="order-list-details"><h4>' + itemTitle + '<br/> <small>' + itemSubtitle + extraTitle + '</small> </h4> <div class="qty-buttons" productId="' + productId + '"> <input type="button" value="+" class="qtyplus" name="plus"> <input type="text" name="qty" value="' + quantity + '" class="qty form-control"> <input type="button" value="-" class="qtyminus" name="minus"> </div><div class="order-list-price format-price">' + itemPrice.toFixed(2) + '</div><div class="order-list-delete"><a href="javascript:;" id="deleteCartItem' + id + rowId + '"><i class="icon icon-trash"></i></a></div></div>');
+
+		updateSubSum(id, rowId, itemPrice, quantity)
 
 		// Handle if an added item will be deleted
 		$('#deleteCartItem' + id + rowId).on('click', function () {
@@ -793,23 +798,32 @@
 	}
 
 	// Function to add item into cart
-	function addItemToCart(id, productId) {
+	function addItemToCart(id, productId, quantity) {
+		quantity = quantity || 1
+
+		console.log('cart', quantity)
 
 		// Remove empty cart image and notifications
 		$('#emptyCart').remove();
 
 		// Collect and set item data
-		rowId = '';
-		extraTitle = '';
-		description = $('#gridItem' + id + ' .item-title small').text();
+		let rowId = '';
+		let extraTitle = '';
+		let description = $('#gridItem' + id + ' .item-title small').text();
 
-		itemTitle = $('#gridItem' + id + ' .item-title h3').text();
-		itemPrice = $('#gridItem' + id + ' .item-price').text();
+		let itemTitle = $('#gridItem' + id + ' .item-title h3').text();
+		let itemPrice = $('#gridItem' + id + ' .item-price').text();
+
+		//console.log(`Product ID ${productId}: Title: ${itemTitle}`)
+		//console.log(`Product ID ${productId}: Price: ${itemPrice}`)
+
 		itemPrice = (itemPrice.match(/[0-9.]+/g)) * 1; // Find digits, dot and convert to number
 
 		const image = $('#gridItem' + id).attr('image');
 
-		thumbnailPath = '/thumbnail-small/' + image;
+		let thumbnailPath = '/thumbnail-small/' + image;
+
+		//console.log(thumbnailPath)
 
 		// Check if item already exists in cart or not
 		if ($('#cartItem' + id + rowId).length > 0) {
@@ -819,9 +833,11 @@
 		} else { // If not: put it into the cart
 
 			$.post(`/cart/add/${productId}`, (success) => {
-				if (success)
-					return insertItemIntoCartRow(id, rowId, description, thumbnailPath, itemTitle, extraTitle, itemPrice, productId);
-
+				if (success) {
+					
+					return insertItemIntoCartRow(id, rowId, description, thumbnailPath, itemTitle, extraTitle, itemPrice, productId, quantity);
+				
+				}
 				alert('Algum erro ocorreu:', success);
 			});
 
@@ -836,6 +852,13 @@
 		validateTotal();
 
 	});
+
+	window.addItem = async (productId, quantity) => {
+		quantity = quantity || 1
+		console.log('add item quanitty', quantity)
+		addItemToCart(productId, productId, quantity)
+		validateTotal();
+	}
 
 	// Pure item without options is added to cart
 	$('.add-item-to-cart').on('click', function () {

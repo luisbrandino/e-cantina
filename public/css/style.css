@@ -2973,6 +2973,12 @@ label.cbx {
     bottom: 0;
 }
 
+a.disabled {
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.5;
+}
+
 .footer {
 	font-size: 13px;
 	color: #ccc;

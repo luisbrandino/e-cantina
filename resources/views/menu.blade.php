@@ -58,7 +58,12 @@ Cardápio
                                             	<span class="item-price format-price">@format($product->price)</span>
                                             </li>
                                             <li>
-                                                <a href="javascript:;" productId="{{ $product->id }}" class="add-item-to-cart"><i class="icon icon-shopping-cart"></i></a>
+                                                @guest
+                                                    <a class="disabled" href="javascript:;" productId="{{ $product->id }}" class="add-item-to-cart"><i class="icon icon-shopping-cart"></i></a>
+                                                @endguest
+                                                @auth
+                                                    <a href="javascript:;" productId="{{ $product->id }}" class="add-item-to-cart"><i class="icon icon-shopping-cart"></i></a>
+                                                @endauth
                                             </li>
                                         </ul>
                                     </div>
@@ -150,11 +155,11 @@ Cardápio
                                             <div class="form-group">
                                                 <label for="userNameCashPayment">Nome completo</label>
                                                 @auth
-                                                    <input name="name" value="{{ Auth::user()->name }}" id="userNameCashPayment" class="form-control" name="username" type="text" data-parsley-pattern="^[a-zA-Z\s.]+$" required />
+                                                    <input name="name" value="{{ Auth::user()->name }}" id="userNameCashPayment" class="form-control" name="username" type="text" data-parsley-pattern="^[a-zA-Z\u00C0-\u017F]+$" required />
                                                 @endauth
 
                                                 @guest
-                                                    <input name="name" id="userNameCashPayment" class="form-control" name="username" type="text" data-parsley-pattern="^[a-zA-Z\s.]+$" required />
+                                                    <input name="name" id="userNameCashPayment" class="form-control" name="username" type="text" data-parsley-pattern="^[a-zA-Z\u00C0-\u017F]+$" required />
                                                 @endguest
                                             </div>
                                         </div>
@@ -164,7 +169,7 @@ Cardápio
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="messageCashPayment">Nome do coletor</label>
-                                                <input name="collector" id="messageCashPayment" class="form-control" name="message" type="text" data-parsley-pattern="^[a-zA-Z0-9\s.:,!?']+$" required/>
+                                                <input name="collector" id="messageCashPayment" class="form-control" name="message" type="text" data-parsley-pattern="^[a-zA-Z\u00C0-\u017F]+$" required/>
                                             </div>
                                         </div>
                                     </div>

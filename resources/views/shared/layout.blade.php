@@ -56,15 +56,15 @@
 				<div class="row">
 					<div class="col-lg-3 col-6">
 						<div id="logo">
-							<h1><a href="#" title="FoodBoard">FoodBoard</a></h1>
+							<h1>E-Cantina</h1>
 						</div>
 					</div>
 					<div class="col-lg-9 col-6">
 						<!-- Menu -->
 						<nav id="menu" class="main-menu">
 							<ul>
-								<li><span><a href="../">Home</a></span></li>
-								<li><span><a href="../pay-with-card-online/">Cardápio</a></span></li>
+								<li><span><a href="/">Home</a></span></li>
+								<li><span><a href="/cardapio">Cardápio</a></span></li>
 
 								@php
                                     $provider = config('providers.microsoft');
@@ -105,14 +105,14 @@
 				<div class="row">
 					<div class="col-md-3">
 					<div id="logo">
-							<h1><a href="#" title="FoodBoard">FoodBoard</a></h1>
+							<h1><a href="#" title="FoodBoard">E-Cantina</a></h1>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<h5 class="footer-heading">Links úteis</h5>
 						<ul class="list-unstyled nav-links">
-							<li><i class="fa fa-angle-right"></i> <a href="../index.html" class="footer-link">Home</a></li>
-							<li><i class="fa fa-angle-right"></i> <a href="../pay-with-card-online/index.php" class="footer-link">Cardápio</a></li>
+							<li><i class="fa fa-angle-right"></i> <a href="/" class="footer-link">Home</a></li>
+							<li><i class="fa fa-angle-right"></i> <a href="/cardapio" class="footer-link">Cardápio</a></li>
 						</ul>
 					</div>
 					<!--<div class="col-md-2">
@@ -401,6 +401,17 @@
 
 	<!-- Main Javascript File -->
 	<script src="../js/scripts.js"></script>
+
+	<script>
+	@if (Request::is('cardapio'))
+		@foreach ($contents['cart'] as $item)
+    		window.addItem({{ $item->associatedModel->id }}, {{ $item->quantity }});
+    		console.log('add', {{ $item->associatedModel->id  }})
+			console.log('quantity', {{ $item->quantity }})
+		@endforeach
+	@endif
+	</script>
+	
 </body>
 
 </html>

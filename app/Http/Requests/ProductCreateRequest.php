@@ -24,7 +24,7 @@ class ProductCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image|mimes:png,jpg,jpeg',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg',
             'name' => 'required|string|max:20',
             'price' => 'required|numeric|between:0,1000',
             'ingredients' => 'nullable|array|max:10'

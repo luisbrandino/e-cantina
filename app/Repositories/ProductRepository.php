@@ -18,8 +18,9 @@ class ProductRepository {
 
     public function create($fields) {
         $fields['price'] = $fields['price'] * 100; // change to cents
-
-        $fields['image_url'] = $this->_imageService->upload($fields['image'], config('project.product_image_options'));
+        
+        if (isset($fields['image']))
+            $fields['image_url'] = $this->_imageService->upload($fields['image'], config('project.product_image_options'));
 
         $fields['on_menu'] = true;
 
