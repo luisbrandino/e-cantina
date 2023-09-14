@@ -37,7 +37,6 @@ class ImageService {
     }
 
     public function delete($filename, $paths) {
-        return 'trueee';
         foreach($paths as $path) {
             $finalPath = public_path($path . '/' . $filename);
 
